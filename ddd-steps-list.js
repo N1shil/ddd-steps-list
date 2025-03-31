@@ -21,7 +21,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
-    this.t = this.t || {};
+    this.dddPrimary = "5"; // default primary color
     this.t = {
       ...this.t,
       title: "Title",
@@ -35,49 +35,73 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     });
   }
 
-  // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
       title: { type: String },
+      dddPrimary: { type: String, attribute: "ddd-primary" },
     };
   }
 
-  // Lit scoped styles
   static get styles() {
     return [super.styles,
-    css`
-      :host {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-      }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
-      }
-    `];
+      css`
+        :host {
+          display: block;
+          color: var(--ddd-theme-primary);
+          background-color: var(--ddd-theme-accent);
+          font-family: var(--ddd-font-navigation);
+        }
+        .wrapper {
+          margin: var(--ddd-spacing-2);
+          padding: var(--ddd-spacing-4);
+        }
+        h3 span {
+          font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
+        }
+      `
+    ];
   }
 
-  // Lit render the HTML
+  firstUpdated() {
+    super.firstUpdated();
+    this.validateChildren();
+    this.assignSteps();
+  }
+
+  validateChildren() {
+    const slot = this.shadowRoot.querySelector("slot");
+    const children = slot.assignedElements({ flatten: true });
+
+    children.forEach((child) => {
+      if (child.tagName.toLowerCase() !== "ddd-steps-list-item") {
+        console.warn(`Removed invalid child <${child.tagName.toLowerCase()}>`);
+        child.remove();
+      }
+    });
+  }
+
+  assignSteps() {
+    const slot = this.shadowRoot.querySelector("slot");
+    const steps = slot.assignedElements({ flatten: true });
+
+    steps.forEach((item, index) => {
+      item.setAttribute("step", index + 1);
+      item.setAttribute("ddd-primary", this.dddPrimary);
+    });
+  }
+
   render() {
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
+      <div class="wrapper">
+        <h3><span>${this.t.title}:</span> ${this.title}</h3>
+        <slot></slot>
+      </div>
+    `;
   }
 
-  /**
-   * haxProperties integration via file reference
-   */
   static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url).href;
   }
 }
 
