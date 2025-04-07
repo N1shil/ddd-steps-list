@@ -25,24 +25,32 @@
 
   <body>
     <h1>How to Make a Latte with an Espresso Machine</h1>
-    <p>Follow these simple steps to craft a delicious latte at home.</p>
+    <p>Follow these simple steps to make a latte at home.</p>
 
-    <ddd-steps-list ddd-primary="6" title="Latte Steps">
-      <p>This paragraph should be removed by validation</p>
+    <ddd-steps-list ddd-primary="6">
+      <p>This should be removed by validation</p> <!-- Left in on purpose for testing -->
 
-      <ddd-steps-list-item title="Prepare Your Machine">
-        <p>Fill the water tank, clean the portafilter, and preheat the machine.</p>
+      <ddd-steps-list-item header="Prepare the Machine">
+        <p>Fill water tank, clean portafilter, and heat the machine.</p>
         <ul>
-          <li>Water tank filled</li>
-          <li>Portafilter cleaned</li>
+          <li>Fill tank</li>
+          <li>Clean portafilter</li>
         </ul>
       </ddd-steps-list-item>
 
-      <ddd-steps-list-item title="Grind and Tamp">
-        <p>Grind your espresso beans and tamp them evenly in the portafilter.</p>
+      <ddd-steps-list-item header="Grind & Tamp">
+        <p>Grind fresh espresso beans and tamp them firmly.</p>
         <ul>
-          <li>Use fresh beans</li>
-          <li>Apply even pressure</li>
+          <li>Fine grind</li>
+          <li>Even pressure</li>
+        </ul>
+      </ddd-steps-list-item>
+
+      <ddd-steps-list-item header="Steam & Pour Milk">
+        <p>Steam milk to desired temperature and pour over espresso shot.</p>
+        <ul>
+          <li>Use cold milk</li>
+          <li>Pour gently</li>
         </ul>
       </ddd-steps-list-item>
     </ddd-steps-list>
