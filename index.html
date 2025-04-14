@@ -5,6 +5,12 @@
     <title>How to Make a Latte</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
+      :root,
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
       body {
         font-family: sans-serif;
         margin: var(--ddd-spacing-4);
@@ -12,12 +18,13 @@
 
       h1 {
         color: var(--ddd-theme-primary);
+        text-align: center;
       }
 
       ddd-steps-list {
         margin-top: var(--ddd-spacing-4);
         padding: var(--ddd-spacing-2);
-        border: var(--ddd-border-md);
+        background-color: var(--ddd-theme-accent);
         border-radius: var(--ddd-radius-lg);
       }
     </style>
@@ -25,10 +32,10 @@
 
   <body>
     <h1>How to Make a Latte with an Espresso Machine</h1>
-    <p>Follow these simple steps to make a latte at home.</p>
+    <p style="text-align:center;">Follow these steps to make the perfect latte.</p>
 
-    <ddd-steps-list ddd-primary="6">
-      <p>This should be removed by validation</p> <!-- Left in on purpose for testing -->
+    <ddd-steps-list dddprimary="5">
+      <p>This should be removed by validation</p>
 
       <ddd-steps-list-item header="Prepare the Machine">
         <p>Fill water tank, clean portafilter, and heat the machine.</p>
@@ -41,13 +48,13 @@
       <ddd-steps-list-item header="Grind & Tamp">
         <p>Grind fresh espresso beans and tamp them firmly.</p>
         <ul>
-          <li>Fine grind</li>
+          <li>Use fresh beans</li>
           <li>Even pressure</li>
         </ul>
       </ddd-steps-list-item>
 
       <ddd-steps-list-item header="Steam & Pour Milk">
-        <p>Steam milk to desired temperature and pour over espresso shot.</p>
+        <p>Steam milk and pour over your espresso shot.</p>
         <ul>
           <li>Use cold milk</li>
           <li>Pour gently</li>

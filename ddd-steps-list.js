@@ -12,13 +12,13 @@ export class DddStepsList extends DDDSuper(LitElement) {
 
   static get properties() {
     return {
-      dddPrimary: { type: String, attribute: "ddd-primary" }, // Added to support primary color
+      dddprimary: { type: String, reflect: true },
     };
   }
 
   constructor() {
     super();
-    this.dddPrimary = "5";
+    this.dddprimary = "5";
   }
 
   static get styles() {
@@ -27,45 +27,39 @@ export class DddStepsList extends DDDSuper(LitElement) {
       css`
         :host {
           display: block;
-          font-family: var(--ddd-font-navigation);
           background-color: var(--ddd-theme-accent);
           padding: var(--ddd-spacing-4);
         }
 
         .wrapper {
-          display: flex;
-          flex-wrap: wrap;
-          gap: var(--ddd-spacing-4);
-        }
-
-        ::slotted(ddd-steps-list-item) {
-          flex: 1 1 300px;
+          margin: var(--ddd-spacing-2);
         }
       `,
     ];
   }
 
   firstUpdated() {
-    super.firstUpdated();
-    this.checkChildren();
+    this.validateChildren();
     this.assignSteps();
   }
 
-  checkChildren() {
-    const children = Array.from(this.children);
+  validateChildren() {
+    const slot = this.shadowRoot.querySelector("slot");
+    const children = slot.assignedElements({ flatten: true });
     children.forEach((child) => {
       if (child.tagName.toLowerCase() !== "ddd-steps-list-item") {
-        console.warn(`Invalid tag removed: <${child.tagName.toLowerCase()}>`);
+        console.warn(`Removed invalid child <${child.tagName}>`);
         child.remove();
       }
     });
   }
 
   assignSteps() {
-    const items = this.querySelectorAll("ddd-steps-list-item");
-    items.forEach((el, i) => {
-      el.setAttribute("step", i + 1);
-      el.setAttribute("ddd-primary", this.dddPrimary);
+    const slot = this.shadowRoot.querySelector("slot");
+    const items = slot.assignedElements({ flatten: true });
+    items.forEach((el, index) => {
+      el.setAttribute("step", index + 1);
+      el.setAttribute("ddd-primary", this.dddprimary);
     });
   }
 
